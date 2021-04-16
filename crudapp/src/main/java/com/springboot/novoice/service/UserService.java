@@ -5,6 +5,7 @@ import com.springboot.novoice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,12 +31,24 @@ public class UserService {
         return false;
     }
 
-    public boolean update(User user) {
+    public User update(User user) {
         Optional<User> optional = userRepository.findById(user.getId());
         if(optional.isPresent()) {
             userRepository.save(user);
-            return true;
+            return user;
         }
-        return false;
+        return null;
+    }
+
+    public User findUser(long id){
+        Optional<User> optional = userRepository.findById(id);
+        if(optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
 }
