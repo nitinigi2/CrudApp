@@ -1,18 +1,39 @@
 package com.springboot.novoice.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "COMMENT")
 public class Comment {
+    @Id
+    @GeneratedValue
     private Long id;
     private String comment;
+    @ManyToOne
     private User commentedBy;
     private Date date;
+    @ManyToOne
+    private Post commentedOn;
 
-    public Comment(Long id, String comment, User commentedBy, Date date) {
+    public Comment(){
+
+    }
+
+    public Post getPost() {
+        return commentedOn;
+    }
+
+    public void setPost(Post commentedOn) {
+        this.commentedOn = commentedOn;
+    }
+
+    public Comment(Long id, String comment, User commentedBy, Date date, Post commentedOn) {
         this.id = id;
         this.comment = comment;
         this.commentedBy = commentedBy;
         this.date = date;
+        this.commentedOn = commentedOn;
     }
 
     public Long getId() {
@@ -54,6 +75,7 @@ public class Comment {
                 ", comment='" + comment + '\'' +
                 ", commentedBy=" + commentedBy +
                 ", date=" + date +
+                ", post=" + commentedOn +
                 '}';
     }
 }

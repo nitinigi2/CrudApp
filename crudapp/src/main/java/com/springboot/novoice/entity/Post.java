@@ -1,24 +1,41 @@
 package com.springboot.novoice.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "POST")
 public class Post {
+    @Id
+    @GeneratedValue
     private Long id;
     private String message;
+    @ManyToOne
     private User postedBy;
     private Date date;
+    //@OneToMany(mappedBy = "commentedOn")
+    @OneToMany(mappedBy = "commentedOn")
     private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Post(){
 
     }
 
-    public Post(Long id, String message, User postedBy, Date date) {
+    public Post(Long id, String message, User postedBy, Date date, List<Comment> comments) {
         this.id = id;
         this.message = message;
         this.postedBy = postedBy;
         this.date = date;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -60,6 +77,7 @@ public class Post {
                 ", message='" + message + '\'' +
                 ", postedBy=" + postedBy +
                 ", date=" + date +
+                ", comments=" + comments +
                 '}';
     }
 }

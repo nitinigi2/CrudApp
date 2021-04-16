@@ -1,21 +1,28 @@
 package com.springboot.novoice.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "USER")
 public class User {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
-    private Date dob;
+    private String dob;
     private String address;
+    //@OneToMany(targetEntity = Post.class, mappedBy = "postedBy")
+    @OneToMany(mappedBy = "postedBy")
     private List<Post> post;
 
     public User(){
 
     }
 
-    public User(Long id, String name, Date dob, String address, List<Post> post) {
+    public User(Long id, String name, String dob, String address, List<Post> post) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -47,11 +54,11 @@ public class User {
         this.name = name;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
