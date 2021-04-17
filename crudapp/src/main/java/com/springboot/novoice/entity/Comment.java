@@ -11,29 +11,31 @@ public class Comment {
     private Long id;
     private String comment;
     @ManyToOne
-    private User commentedBy;
+    @JoinColumn(name = "user_id")
+    private User user;
     private Date date;
     @ManyToOne
-    private Post commentedOn;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     public Comment(){
 
     }
 
     public Post getPost() {
-        return commentedOn;
+        return post;
     }
 
     public void setPost(Post commentedOn) {
-        this.commentedOn = commentedOn;
+        this.post = commentedOn;
     }
 
-    public Comment(Long id, String comment, User commentedBy, Date date, Post commentedOn) {
+    public Comment(Long id, String comment, User user, Date date, Post post) {
         this.id = id;
         this.comment = comment;
-        this.commentedBy = commentedBy;
+        this.user = user;
         this.date = date;
-        this.commentedOn = commentedOn;
+        this.post = post;
     }
 
     public Long getId() {
@@ -52,12 +54,12 @@ public class Comment {
         this.comment = comment;
     }
 
-    public User getCommentedBy() {
-        return commentedBy;
+    public User getUser() {
+        return user;
     }
 
-    public void setCommentedBy(User commentedBy) {
-        this.commentedBy = commentedBy;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDate() {
@@ -73,9 +75,9 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", comment='" + comment + '\'' +
-                ", commentedBy=" + commentedBy +
+                ", commentedBy=" + user +
                 ", date=" + date +
-                ", post=" + commentedOn +
+                ", post=" + post +
                 '}';
     }
 }
