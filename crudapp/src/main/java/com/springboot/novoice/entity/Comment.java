@@ -1,5 +1,7 @@
 package com.springboot.novoice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,10 +12,12 @@ public class Comment {
     @GeneratedValue
     private Long id;
     private String comment;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private Date date;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
