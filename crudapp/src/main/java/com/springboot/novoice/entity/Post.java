@@ -1,7 +1,8 @@
 package com.springboot.novoice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,11 +12,13 @@ public class Post {
     @GeneratedValue
     private Long id;
     private String message;
+    @JsonIgnore
     @ManyToOne
-    private User postedBy;
-    private Date date;
+    @JoinColumn(name = "user_id")
+    private User user;
+    private String date;
     //@OneToMany(mappedBy = "commentedOn")
-    @OneToMany(mappedBy = "commentedOn")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
     public List<Comment> getComments() {
@@ -26,14 +29,14 @@ public class Post {
         this.comments = comments;
     }
 
-    public Post(){
+    public Post() {
 
     }
 
-    public Post(Long id, String message, User postedBy, Date date, List<Comment> comments) {
+    public Post(Long id, String message, User postedBy, String date, List<Comment> comments) {
         this.id = id;
         this.message = message;
-        this.postedBy = postedBy;
+        this.user = postedBy;
         this.date = date;
         this.comments = comments;
     }
@@ -54,19 +57,19 @@ public class Post {
         this.message = message;
     }
 
-    public User getPostedBy() {
-        return postedBy;
+    public User getUser() {
+        return user;
     }
 
-    public void setPostedBy(User postedBy) {
-        this.postedBy = postedBy;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -75,7 +78,7 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
-                ", postedBy=" + postedBy +
+                ", postedBy=" + user +
                 ", date=" + date +
                 ", comments=" + comments +
                 '}';
