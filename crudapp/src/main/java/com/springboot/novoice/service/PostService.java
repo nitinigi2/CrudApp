@@ -32,13 +32,17 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post delete(Long id){
-        Optional<Post> optional = postRepository.findById(id);
-        if(optional.isPresent()){
-            postRepository.delete(optional.get());
-            return optional.get();
+    public void delete(Long userId, Long postId){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(!optionalUser.isPresent()) {
+            throw new ResourceNotFoundException();
         }
-        return null;
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        if(optionalPost.isPresent()){
+            Post post = optionalPost.get();
+            post.setUser(optionalUser.get());
+            postRepository.delete(optionalPost.get());
+        }
     }
 
     public List<Post> findAllPost(Long userId){
