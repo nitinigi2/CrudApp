@@ -15,7 +15,7 @@ public class User {
     private String dob;
     private String address;
     //@OneToMany(targetEntity = Post.class, mappedBy = "postedBy")
-    @OneToMany(mappedBy = "postedBy")
+    @OneToMany(mappedBy = "user")
     private List<Post> post;
 
     public User(){
