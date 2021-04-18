@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +31,7 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    List<User> mockUsers = Arrays.asList(new User(1L,"abc", "09-12-2019", "dfr", new ArrayList<>()));
+    List<User> mockUsers = Arrays.asList(new User(1L,"abc", new Date(2019-06-12), "dfr", new ArrayList<>()));
 
     @Test
     public void retrieveUsers() throws Exception {
@@ -39,7 +40,7 @@ public class UserControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users").accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         System.out.println(result.getResponse().getContentAsString());
-        String expected = "[{id:1,name:abc,dob:09-12-2019,address:dfr,post:[]}]";
+        String expected = "[{id:1,name:abc,dob:2019-06-12,address:dfr,post:[]}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
     }
 }
