@@ -1,6 +1,8 @@
 package com.springboot.novoice.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +13,10 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+    @Size(min = 2)
     private String name;
-    private String dob;
+    @Past
+    private Date dob;
     private String address;
     //@OneToMany(targetEntity = Post.class, mappedBy = "postedBy")
     @OneToMany(mappedBy = "user")
@@ -22,14 +26,14 @@ public class User {
 
     }
 
-    public User(String name, String dob, String address, List<Post> post) {
+    public User(String name, Date dob, String address, List<Post> post) {
         this.name = name;
         this.dob = dob;
         this.address = address;
         this.post = post;
     }
 
-    public User(Long id, String name, String dob, String address, List<Post> post) {
+    public User(Long id, String name, Date dob, String address, List<Post> post) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -61,11 +65,11 @@ public class User {
         this.name = name;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
