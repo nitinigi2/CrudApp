@@ -22,6 +22,13 @@ public class User {
 
     }
 
+    public User(String name, String dob, String address, List<Post> post) {
+        this.name = name;
+        this.dob = dob;
+        this.address = address;
+        this.post = post;
+    }
+
     public User(Long id, String name, String dob, String address, List<Post> post) {
         this.id = id;
         this.name = name;
