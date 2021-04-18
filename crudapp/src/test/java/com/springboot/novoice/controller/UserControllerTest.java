@@ -30,7 +30,7 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    List<User> mockUsers = Arrays.asList(new User(1L, "abc", "09-12-2019", "dfr", new ArrayList<>()));
+    List<User> mockUsers = Arrays.asList(new User(1L,"abc", "09-12-2019", "dfr", new ArrayList<>()));
 
     @Test
     public void retrieveUsers() throws Exception {
