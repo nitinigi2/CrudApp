@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Component
 public class UserCommandLineRunner implements CommandLineRunner {
@@ -15,7 +16,7 @@ public class UserCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = userService.save(new User("test", "20-10-2011", "sample address", new ArrayList<>()));
+        User user = userService.save(new User("test", new Date(20-10-2011), "sample address", new ArrayList<>()));
         System.out.println(user);
     }
 }
