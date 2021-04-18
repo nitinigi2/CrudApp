@@ -4,8 +4,11 @@ import com.springboot.novoice.entity.User;
 import com.springboot.novoice.exception.UserNotFoundException;
 import com.springboot.novoice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -18,10 +21,14 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user){
+    public ResponseEntity<?> addUser(@RequestBody User user){
         if(user != null) {
-            userService.save(user);
-            return user;
+            User savedUser = userService.save(user);
+            URI uri = ServletUriComponentsBuilder.
+                    fromCurrentRequest().
+                    path("/{id}").
+                    buildAndExpand(savedUser.getId()).toUri();
+            return ResponseEntity.created(uri).build();
         }
         throw new UserNotFoundException();
     }
